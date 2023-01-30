@@ -13,7 +13,7 @@ export const listProducts = (queryObject) => async (dispatch) => {
         type: "PRODUCT_LIST_SUCCESS",
         payload: data,
       });
-    }, 500);
+    }, 400);
   } catch (error) {
     dispatch({
       type: "PRODUCT_LIST_FAIL",

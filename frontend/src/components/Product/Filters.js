@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../actions/productActions";
+import { listProducts } from "../../actions/productActions";
 
 export default function Filters() {
   const dispatch = useDispatch();

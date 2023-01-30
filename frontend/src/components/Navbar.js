@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {useSelector } from "react-redux";
 
 export default function Navbar() {
+  const Cart = useSelector((state) => state.cart);
+  const { cartItems } = Cart;
   return (
     <header>
       <div className="navbar-container">
@@ -28,6 +31,7 @@ export default function Navbar() {
 	c2.13,0,4.1-0.71,5.72-1.9l5.97,8L23.3,25.9z M2,10.5C2,5.81,5.59,2,10,2s8,3.81,8,8.5S14.41,19,10,19S2,15.19,2,10.5z"
             ></path>
           </svg>
+          
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
@@ -48,6 +52,8 @@ export default function Navbar() {
           >
             <path d="M 17.90035,7.643509 V 5.619649 C 17.90035,2.5150875 15.385265,0 12.2807,0 V 0 C 9.185965,0 6.6610525,2.5249125 6.6610525,5.619649 v 2.02386 H 0 V 28 H 24.954385 V 7.643509 Z M 8.625965,5.619649 c 0,-2.014035 1.6407,-3.6547365 3.654735,-3.6547365 v 0 c 0.972635,0 1.89614,0.3831575 2.58386,1.070877 0.68772,0.6877195 1.07088,1.611228 1.07088,2.5838595 v 2.02386 H 8.625965 Z M 22.989475,26.03509 H 1.9649125 V 9.608421 H 22.989475 Z"></path>
           </svg>
+          {cartItems.length===0?<></>:<div className="count">{cartItems.length}</div>}
+          
         </div>
       </div>
     </header>

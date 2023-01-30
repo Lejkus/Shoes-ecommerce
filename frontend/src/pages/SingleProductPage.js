@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { singleProduct } from "../actions/productActions";
-import ProductDetails from "../components/ProductDetails";
-import Reviews from "../components/Reviews";
+import ProductDetails from "../components/Product/ProductDetails";
+import Reviews from "../components/Review/Reviews";
 
 export default function SingleProductPage() {
   const dispatch = useDispatch();
