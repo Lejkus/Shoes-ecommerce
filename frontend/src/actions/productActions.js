@@ -3,11 +3,11 @@ import axios from "axios";
 export const listProducts = (queryObject) => async (dispatch) => {
   try {
     dispatch({ type: "PRODUCT_LIST_REQUEST" });
-
     const { data } = await axios.get(
       `http://localhost:5000/api/products?color=${queryObject.color}&numericFilters=${queryObject.numericFilters}&sort=${queryObject.sort}&category=${queryObject.category}`
     );
     //little bit of waiting :)
+
     setTimeout(() => {
       dispatch({
         type: "PRODUCT_LIST_SUCCESS",
@@ -32,10 +32,13 @@ export const singleProduct = (id) => async (dispatch) => {
     const { data } = await axios.get(
       `http://localhost:5000/api/products/singleproduct${id}`
     );
-    dispatch({
-      type: "SINGLE_PRODUCT_SUCCESS",
-      payload: data,
-    });
+
+    setTimeout(() => {
+      dispatch({
+        type: "SINGLE_PRODUCT_SUCCESS",
+        payload: data,
+      });
+    }, 300);
   } catch (error) {
     dispatch({
       type: "SINGLE_PRODUCT_FAIL",

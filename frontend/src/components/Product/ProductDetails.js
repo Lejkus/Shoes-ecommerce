@@ -12,14 +12,12 @@ export default function ProductDetails({ product }) {
   const [acitve_images, setImages] = useState(product.images[0]);
   const [visible, setVisible] = useState(false);
 
-  const Cart = useSelector((state) => state.cart);
-  const { adding, error, cartItems } = Cart;
 
   const addToCartHandler = () => {
     dispatch(addToCart(product._id, active_color));
-    setVisible(true)
+    setVisible(true);
     setTimeout(() => {
-      setVisible(false)
+      setVisible(false);
     }, 3000);
   };
 
@@ -70,13 +68,17 @@ export default function ProductDetails({ product }) {
         })}
         <hr></hr>
         <h3>Last comment: </h3>
+        {product.reviews.length > 0 ? (
+          <p>
+            {product.reviews[product.reviews.length - 1].name}:&nbsp;
+            {product.reviews[product.reviews.length - 1].comment}
+            &nbsp;&nbsp;&nbsp;
+            <b>{product.reviews[product.reviews.length - 1].rating}/5 </b>
+          </p>
+        ) : (
+          <>No reviews yet</>
+        )}
 
-        <p>
-          {product.reviews[product.reviews.length - 1].name}:&nbsp;
-          {product.reviews[product.reviews.length - 1].comment}
-          &nbsp;&nbsp;&nbsp;
-          <b>{product.reviews[product.reviews.length - 1].rating}/5 </b>
-        </p>
         <hr></hr>
         <center>
           <button
@@ -99,7 +101,7 @@ export default function ProductDetails({ product }) {
         </center>
       </div>
 
-     <CartAlert visible={visible}/>
+      <CartAlert visible={visible} />
     </div>
   );
 }

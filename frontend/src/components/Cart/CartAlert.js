@@ -4,14 +4,13 @@ import { Link } from "react-router-dom";
 
 export default function CartAlert({ visible }) {
   const Cart = useSelector((state) => state.cart);
-  const { adding, error, cartItems } = Cart;
+  const { succes, cartItems } = Cart;
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
     let total1 = 0;
     cartItems.map((item) => {
       total1 += item.data.price * item.qty;
-      //console.log(item.data.price * item.qty);
     });
     setTotal(total1);
   }, [cartItems]);
@@ -21,6 +20,7 @@ export default function CartAlert({ visible }) {
       <Link to={`/cart`}>
         <div class={visible ? "triangle" : "triangle-hidden"}></div>
         <div class={visible ? "added-alert" : "added-alert-hidden"}>
+          <center color="red"><b >{succes}</b></center>
           <div className="items">
             {cartItems
               .map((item, index) => {

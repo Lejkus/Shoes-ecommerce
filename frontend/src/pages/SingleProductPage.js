@@ -15,15 +15,17 @@ export default function SingleProductPage() {
   useEffect(() => {
     dispatch(singleProduct(id));
   }, [dispatch]);
-    
+
   return (
     <>
       {loading ? (
-        <h1>loading</h1>
+        <div className="loader-container">
+          <div className="spinner"></div>
+        </div>
       ) : product ? (
         <>
           <ProductDetails product={product} />
-          <Reviews reviews={product.reviews}/>
+          <Reviews reviews={product.reviews} />
         </>
       ) : (
         <h1>error</h1>

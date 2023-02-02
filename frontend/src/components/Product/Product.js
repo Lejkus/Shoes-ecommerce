@@ -21,7 +21,7 @@ export default function Product({ product }) {
             <img
               src={product.images[index].images[0]}
               className={`small-img`}
-              onClick={(e) => setImg(product.images[index].images[0])}
+              onClick={(e) => setImg(product.images[index].images[1])}
             ></img>
           );
         })}
