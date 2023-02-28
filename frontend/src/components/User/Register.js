@@ -101,7 +101,7 @@ export default function Register() {
       {alert.text ? (
         <Alert type={alert.type} text={alert.text} c={count} />
       ) : (
-        <div className="niuema" style={{ height: "70px" }}></div>
+        <div style={{ height: "70px" }}></div>
       )}
       <input
         onChange={(e) => {

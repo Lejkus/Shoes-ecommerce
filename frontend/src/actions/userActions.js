@@ -45,3 +45,17 @@ export async function GetUserData(token) {
     throw error.message;
   }
 }
+
+export async function AddUserOrder(token,cart,total){
+  try {
+    const data = {
+      id:token,
+      cart:cart,
+      total:total
+    };
+    
+    return await axios.post(`http://localhost:5000/api/user/addorder`, data);
+  } catch (error) {
+    throw error.message;
+  }
+}

@@ -72,6 +72,13 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       };
     }
 
+    case "CART_TOTAL":{
+      return {
+        ...state,
+        total: action.payload.total,
+      };
+    }
+
     case "CART_ADD_ITEM_FAIL":
       return { added: false, error: action.payload };
 

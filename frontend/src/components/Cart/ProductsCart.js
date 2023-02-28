@@ -5,7 +5,7 @@ import { ChangeQty } from "../../actions/cartActions";
 
 export default function ProductsCart({ cartItems }) {
   const dispatch = useDispatch();
-  console.log(cartItems);
+  
   const handleDelete = (item) => {
     dispatch(deleteFromCart(item.data._id, item.color));
   };
