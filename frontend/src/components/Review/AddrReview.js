@@ -1,31 +1,46 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Alert from "../Alert";
+import { useSelector } from "react-redux";
 
 export default function AddrReview() {
   const { id } = useParams();
   const [visible, setVisible] = useState(false);
 
+  const User = useSelector((state) => state.user);
+  const { userInfo } = User;
+  const token = userInfo.token;
+
   const [starsLength, setStarsLength] = useState(4);
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
 
+  const [alert, setAlert] = useState({ text: null });
+  const [count, setCount] = useState(0);
+
   const addReviev = async () => {
-    if (name != "" && comment != "") {
-      await axios
-        .post(`http://localhost:5000/api/products/addreview/${id}`, {
-          name: name,
-          rating: starsLength + 1,
-          comment: comment,
-        })
-        .then((response) => {
-          alert(response.data.Success);
-        });
-      setName("");
-      setComment("");
-      setStarsLength(4);
+    if (token) {
+      if (name != "" && comment != "") {
+        await axios
+          .post(`http://localhost:5000/api/products/addreview/${id}`, {
+            name: name,
+            rating: starsLength + 1,
+            comment: comment,
+          })
+          .then((response) => {
+            setAlert({ type: "success", text: response.data.Success });
+          });
+        setName("");
+        setComment("");
+        setStarsLength(4);
+      } else {
+        setCount(count + 1);
+        setAlert({ type: "error", text: "Empty spaces" });
+      }
     } else {
-      alert("Fill the data!");
+      setCount(count + 1);
+      setAlert({ type: "error", text: "Login to write Review" });
     }
   };
 
@@ -39,6 +54,11 @@ export default function AddrReview() {
 
   return (
     <div className="review-container">
+      {alert.text ? (
+        <Alert type={alert.type} text={alert.text} c={count} />
+      ) : (
+        <div className="niuema" style={{ height: "70px" }}></div>
+      )}
       <button
         className="display-button"
         onClick={() => {

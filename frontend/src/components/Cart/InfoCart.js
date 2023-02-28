@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { SetTotal } from "../../actions/cartActions";
 
 export default function InfoCart({ cartItems }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const User = useSelector((state) => state.user);
+  const token = User.userInfo.token;
+
   const [total, setTotal] = useState(0);
   const [shipping, setShipping] = useState(0);
   const [shippType, setShippType] = useState(10);
@@ -8,16 +18,29 @@ export default function InfoCart({ cartItems }) {
   const HandleShipChange = (event) => {
     setShippType(event.target.value);
   };
+
+  const handleCheckout = () => {
+    if (token) {
+      navigate(`/checkout`);
+    } else {
+      alert("Login to checkout");
+    }
+  };
+
   useEffect(() => {
-    let total1 = 0;
-    let shipp = 0;
+    let totalitems = 0;
+    let totalship = 0;
     cartItems.map((item) => {
-      total1 += item.data.price * item.qty;
-      shipp += shippType * item.qty;
+      totalitems += item.data.price * item.qty;
+      totalship += shippType * item.qty;
     });
-    setTotal(total1);
-    setShipping(shipp);
+    setTotal(totalitems);
+    setShipping(totalship);
   }, [{ cartItems }]);
+
+  useEffect(() => {
+    dispatch(SetTotal(total + shipping));
+  }, [total + shipping]);
 
   return (
     <div className="info-site">
@@ -55,9 +78,12 @@ export default function InfoCart({ cartItems }) {
         </div>
         <hr></hr>
         <center>
-          <button>Proceed to checkout</button>
+          {total + shipping < 1 ? (
+            <button disabled>No items in cart</button>
+          ) : (
+            <button onClick={handleCheckout}>Proceed to checkout</button>
+          )}
         </center>
-
         <hr></hr>
       </div>
     </div>

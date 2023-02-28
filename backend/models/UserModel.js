@@ -2,8 +2,9 @@ import mongoose from 'mongoose'
 
 const orderSchema = mongoose.Schema(
   {
-    cart: [],
+    products: [],
     status: { type: String, required: true },
+    total:{type:Number,required: true }
   },
   {
     timestamps: true,

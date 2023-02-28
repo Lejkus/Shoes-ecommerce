@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../actions/cartActions";
-import { Link } from "react-router-dom";
 import CartAlert from "../Cart/CartAlert";
 
 export default function ProductDetails({ product }) {

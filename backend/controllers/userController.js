@@ -81,4 +81,17 @@ const GetUserData = async (req, res) => {
   });
 };
 
-export { RegisterUser, LoginUser, GetUserData };
+const AddOrder = async (req, res) => {
+  const { id, cart, total } = req.body;
+  User.findOneAndUpdate(
+    { _id: id },
+    { $push: { orders: {products:cart,status:"recived",total:total }} },
+    function (err, data) {
+      if (data) {
+        res.send({ Success: "Order recived!" });
+      }
+    }
+  );
+};
+
+export { RegisterUser, LoginUser, GetUserData, AddOrder };
