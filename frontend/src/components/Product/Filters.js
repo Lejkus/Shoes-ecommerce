@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../actions/productActions";
-
 
 export default function Filters() {
   const dispatch = useDispatch();
 
+  const rangeinput = useRef();
+  const nameinput = useRef();
+
   const [queryObject, setQueryObject] = useState({
     color: "",
     category: "",
-    numericFilters: "",
+    numericFilters: 500,
     sort: "",
+    name: "",
   });
 
   const [filters, setFilters] = useState({
@@ -40,6 +43,18 @@ export default function Filters() {
     }
   };
 
+  const handleReset = () => {
+    setQueryObject({
+      color: "",
+      category: "",
+      sort: "",
+      name: "",
+      numericFilters: 500,
+    });
+    rangeinput.current.value = 500;
+    nameinput.current.value = "";
+  };
+
   useEffect(() => {
     dispatch(listProducts(queryObject));
   }, [queryObject]);
@@ -48,108 +63,120 @@ export default function Filters() {
     <>
       <div className="filters">
         <h1>FILTERS</h1>
-        <hr></hr>
-        <div
-          className="title-toogle"
-          onClick={() => {
-            handleToggle("color");
+        <input
+          type="text"
+          ref={nameinput}
+          onChange={(e) => {
+            setQueryObject((prevState) => ({
+              ...prevState,
+              name: e.target.value,
+            }));
           }}
-        >
-          <h3>Color</h3>
-          <div>
-            <i className={filters.color ? "arrow down" : "arrow up"}></i>
-          </div>
-        </div>
-        <div className={filters.color ? "colors" : "colors-hidden"}>
+        ></input>
+        <hr></hr>
+        <>
           <div
+            className="title-toogle"
             onClick={() => {
-              setQueryObject((prevState) => ({
-                ...prevState,
-                color: "",
-              }));
-            }}
-            className="color"
-          >
-            <label>All</label>
-            <input type="checkbox" checked={queryObject.color === ""}></input>
-          </div>
-          <div
-            onClick={() => {
-              setQueryObject((prevState) => ({
-                ...prevState,
-                color: "OCEAN",
-              }));
-            }}
-            className="color"
-          >
-            <label>Ocean</label>
-            <input
-              type="checkbox"
-              checked={queryObject.color === "OCEAN"}
-            ></input>
-          </div>
-          <div
-            onClick={() => {
-              setQueryObject((prevState) => ({
-                ...prevState,
-                color: "BLACK",
-              }));
-            }}
-            className="color"
-          >
-            <label>Black</label>
-            <input
-              type="checkbox"
-              checked={queryObject.color === "BLACK"}
-            ></input>
-          </div>
-          <div
-            onClick={() => {
-              setQueryObject((prevState) => ({
-                ...prevState,
-                color: "WHITE",
-              }));
-            }}
-            className="color"
-          >
-            <label>White</label>
-            <input
-              type="checkbox"
-              checked={queryObject.color === "WHITE"}
-            ></input>
-          </div>
-          <div
-            className="color"
-            onClick={() => {
-              setQueryObject((prevState) => ({
-                ...prevState,
-                color: "BLUE",
-              }));
+              handleToggle("color");
             }}
           >
-            <label>Blue</label>
-            <input
-              type="checkbox"
-              checked={queryObject.color === "BLUE"}
-            ></input>
+            <h3>Color</h3>
+            <div>
+              <i className={filters.color ? "arrow down" : "arrow up"}></i>
+            </div>
           </div>
+          <div className={filters.color ? "colors" : "colors-hidden"}>
+            <div
+              onClick={() => {
+                setQueryObject((prevState) => ({
+                  ...prevState,
+                  color: "",
+                }));
+              }}
+              className="color"
+            >
+              <label>All</label>
+              <input type="checkbox" checked={queryObject.color === ""}></input>
+            </div>
+            <div
+              onClick={() => {
+                setQueryObject((prevState) => ({
+                  ...prevState,
+                  color: "OCEAN",
+                }));
+              }}
+              className="color"
+            >
+              <label>Ocean</label>
+              <input
+                type="checkbox"
+                checked={queryObject.color === "OCEAN"}
+              ></input>
+            </div>
+            <div
+              onClick={() => {
+                setQueryObject((prevState) => ({
+                  ...prevState,
+                  color: "BLACK",
+                }));
+              }}
+              className="color"
+            >
+              <label>Black</label>
+              <input
+                type="checkbox"
+                checked={queryObject.color === "BLACK"}
+              ></input>
+            </div>
+            <div
+              onClick={() => {
+                setQueryObject((prevState) => ({
+                  ...prevState,
+                  color: "WHITE",
+                }));
+              }}
+              className="color"
+            >
+              <label>White</label>
+              <input
+                type="checkbox"
+                checked={queryObject.color === "WHITE"}
+              ></input>
+            </div>
+            <div
+              className="color"
+              onClick={() => {
+                setQueryObject((prevState) => ({
+                  ...prevState,
+                  color: "BLUE",
+                }));
+              }}
+            >
+              <label>Blue</label>
+              <input
+                type="checkbox"
+                checked={queryObject.color === "BLUE"}
+              ></input>
+            </div>
 
-          <div
-            className="color"
-            onClick={() => {
-              setQueryObject((prevState) => ({
-                ...prevState,
-                color: "HONEY",
-              }));
-            }}
-          >
-            <label>Honey</label>
-            <input
-              type="checkbox"
-              checked={queryObject.color === "HONEY"}
-            ></input>
+            <div
+              className="color"
+              onClick={() => {
+                setQueryObject((prevState) => ({
+                  ...prevState,
+                  color: "HONEY",
+                }));
+              }}
+            >
+              <label>Honey</label>
+              <input
+                type="checkbox"
+                checked={queryObject.color === "HONEY"}
+              ></input>
+            </div>
           </div>
-        </div>
+        </>
         <hr></hr>
         <div
           className="title-toogle"
@@ -308,20 +335,34 @@ export default function Filters() {
           </div>
         </div>
         <hr></hr>
-        <button
-          className="reset"
-          onClick={() => {
-            setQueryObject(() => ({
-              color: "",
-              category: "",
-              sort: "",
+        <p>${queryObject.numericFilters}</p>
+
+        <input
+          type="range"
+          ref={rangeinput}
+          min="20"
+          max="500"
+          step="10"
+          defaultValue="500"
+          onMouseUp={(e) => {
+            setQueryObject((prevState) => ({
+              ...prevState,
+              numericFilters: e.target.value,
             }));
           }}
-        >
+          onTouchEnd={(e) => {
+            setQueryObject((prevState) => ({
+              ...prevState,
+              numericFilters: e.target.value,
+            }));
+          }}
+        ></input>
+
+        <hr></hr>
+        <button className="reset" onClick={handleReset}>
           Remove all
         </button>
       </div>
-
     </>
   );
 }

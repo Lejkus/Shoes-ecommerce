@@ -1,15 +1,19 @@
-require("express-async-errors");
-require("dotenv").config();
-const cors = require("cors");
-const express = require('express')
-const connectDB = require("./db/db");
+import express from 'express'
+import dotenv from 'dotenv'
+import connectDB from './db/db.js'
+import cors from 'cors';
+import productsRouter from './routes/productRoute.js'
+import userRouter from './routes/userRoute.js'
+
 const app = express();
-const productsRouter = require('./routes/productRoute');
+
+dotenv.config()
 
 app.use(cors());
 app.use(express.json());
 
 app.use('/api/products', productsRouter)
+app.use('/api/user', userRouter)
 
 const port = process.env.PORT;
 

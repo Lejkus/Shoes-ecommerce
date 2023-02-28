@@ -1,5 +1,4 @@
-const { query } = require("express");
-const Product = require("../models/ProductModel");
+import Product from "../models/ProductModel.js";
 
 const getAllProducts = async (req, res) => {
   const { color, name, category, sort, numericFilters } = req.query;
@@ -8,7 +7,7 @@ const getAllProducts = async (req, res) => {
   if (category) {
     queryObject.category = category;
   }
-  
+
   if (name) {
     queryObject.name = { $regex: name, $options: "i" };
   }
@@ -59,12 +58,10 @@ const getAllProducts = async (req, res) => {
     products.sort((a, b) => (a.price > b.price ? 1 : -1));
   }
 
- 
   // const page = Number(req.query.page) || 1;
   // const limit = Number(req.query.limit) || 2;
   // const skip = (page - 1) * limit;
   // // result = result.skip(skip).limit(limit);
-
 
   res.status(200).json(products);
 };
@@ -208,9 +205,4 @@ const addProduct = async (req, res) => {
   });
 };
 
-module.exports = {
-  getAllProducts,
-  addProduct,
-  getSingleProduct,
-  addReview,
-};
+export { getAllProducts, addProduct, getSingleProduct, addReview };

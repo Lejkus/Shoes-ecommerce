@@ -18,6 +18,7 @@ export default function ProductsPage() {
     }, 200);
   };
 
+  //when products change set page by default on 1
   useEffect(() => {
     setPage(1);
   }, [products]);
