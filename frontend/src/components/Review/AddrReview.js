@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Alert from "../Alert";
 import { useSelector } from "react-redux";
+import { GetUserData } from "../../actions/userActions";
+import Button from "../Button";
 
 export default function AddrReview() {
   const { id } = useParams();
@@ -13,7 +15,6 @@ export default function AddrReview() {
   const token = userInfo.token;
 
   const [starsLength, setStarsLength] = useState(4);
-  const [name, setName] = useState("");
   const [comment, setComment] = useState("");
 
   const [alert, setAlert] = useState({ text: null });
@@ -21,17 +22,18 @@ export default function AddrReview() {
 
   const addReviev = async () => {
     if (token) {
-      if (name != "" && comment != "") {
-        await axios
-          .post(`http://localhost:5000/api/products/addreview/${id}`, {
-            name: name,
-            rating: starsLength + 1,
-            comment: comment,
-          })
-          .then((response) => {
-            setAlert({ type: "success", text: response.data.Success });
-          });
-        setName("");
+      if (comment != "") {
+        GetUserData(token).then((response) => {
+          axios
+            .post(`http://localhost:5000/api/products/addreview/${id}`, {
+              name: response.data.name,
+              rating: starsLength + 1,
+              comment: comment,
+            })
+            .then((response) => {
+              setAlert({ type: "success", text: response.data.Success });
+            });
+        });
         setComment("");
         setStarsLength(4);
       } else {
@@ -42,10 +44,6 @@ export default function AddrReview() {
       setCount(count + 1);
       setAlert({ type: "error", text: "Login to write Review" });
     }
-  };
-
-  const handleChangeName = (event) => {
-    setName(event.target.value);
   };
 
   const handleChangeComment = (event) => {
@@ -59,20 +57,14 @@ export default function AddrReview() {
       ) : (
         <div className="niuema" style={{ height: "70px" }}></div>
       )}
-      <button
-        className="display-button"
+      <a
         onClick={() => {
           setVisible(!visible);
         }}
       >
-        Write review
-      </button>
+        <Button width={"180px"} height={"70px"} text={"Write review"} />
+      </a>
       <div className={visible ? "review-schema" : "review-schema-hidden"}>
-        <div>
-          <label>Name</label>
-          <input onChange={handleChangeName} value={name} type="text"></input>
-        </div>
-
         <div>
           <label>Rating</label>
           <div className="star-container">
@@ -166,13 +158,19 @@ export default function AddrReview() {
             value={comment}
           ></textarea>
         </div>
-        <button
+        <a
+          style={{ marginLeft: "60%" }}
           onClick={() => {
             addReviev();
           }}
         >
-          Sumbit
-        </button>
+          <Button
+            margintop={"10px"}
+            width={"100px"}
+            height={"50px"}
+            text={"Sumbit"}
+          />
+        </a>
       </div>
     </div>
   );

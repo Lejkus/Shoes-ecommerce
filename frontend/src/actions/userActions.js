@@ -59,3 +59,11 @@ export async function AddUserOrder(token,cart,total){
     throw error.message;
   }
 }
+
+export async function ChangeUserAddress(id,address) {
+  try {
+    return await axios.put(`http://localhost:5000/api/user/address`, {address:address,id:id});
+  } catch (error) {
+    throw error.message;
+  }
+}

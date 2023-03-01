@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { SetTotal } from "../../actions/cartActions";
+import Button from "../Button";
 
 export default function InfoCart({ cartItems }) {
   const navigate = useNavigate();
@@ -79,9 +80,23 @@ export default function InfoCart({ cartItems }) {
         <hr></hr>
         <center>
           {total + shipping < 1 ? (
-            <button disabled>No items in cart</button>
+            <a  onClick={handleCheckout}>
+              <Button
+                width={"400px"}
+                height={"50px"}
+                margintop={"10px"}
+                text={"Proceed to checkout"}
+              />
+            </a>
           ) : (
-            <button onClick={handleCheckout}>Proceed to checkout</button>
+            <a  onClick={handleCheckout}>
+              <Button
+                width={"400px"}
+                height={"50px"}
+                margintop={"10px"}
+                text={"Proceed to checkout"}
+              />
+            </a>
           )}
         </center>
         <hr></hr>

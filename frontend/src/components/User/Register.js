@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { RegisterUser } from "../../actions/userActions";
 import Alert from "../Alert";
+import Button from "../Button";
 
 export default function Register() {
   const [data, setData] = useState({
@@ -138,6 +139,7 @@ export default function Register() {
         }
       ></input>
       <input
+        type="password"
         onChange={(e) => {
           handleDataChange("password", e.target.value);
         }}
@@ -192,7 +194,15 @@ export default function Register() {
         ></input>
       </div>
 
-      <button type="submit">Register</button>
+      <a>
+        <Button
+          margintop={"20px"}
+          width={"250px"}
+          height={"40px"}
+          text={"Register"}
+          type={"submit"}
+        />
+      </a>
     </form>
   );
 }

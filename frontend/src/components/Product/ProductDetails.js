@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../actions/cartActions";
 import CartAlert from "../Cart/CartAlert";
+import Button from "../Button";
 
 export default function ProductDetails({ product }) {
   const dispatch = useDispatch();
@@ -80,14 +81,14 @@ export default function ProductDetails({ product }) {
 
         <hr></hr>
         <center>
-          <button
+          <a
             onClick={() => {
               addToCartHandler();
             }}
-            className="add-to-cart"
+            
           >
-            ADD TO CART
-          </button>
+            <Button width={"400px"} height={"40px"} text={"ADD TO CART"} />
+          </a>
 
           <p className="status">
             Status:{" "}

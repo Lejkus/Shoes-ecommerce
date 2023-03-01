@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const RegisterUser = async (req, res) => {
-  const { name, surname, email, password, country, city, zip, street, nr } =
+  const { name, surname, email, password, country, city, zipcode, street, nr } =
     req.body;
 
   if (name && surname && email && password) {
@@ -19,7 +19,7 @@ const RegisterUser = async (req, res) => {
             address: {
               country: country,
               city: city,
-              zip: zip,
+              zipcode: zipcode,
               street: street,
               nr: nr,
             },
@@ -85,7 +85,7 @@ const AddOrder = async (req, res) => {
   const { id, cart, total } = req.body;
   User.findOneAndUpdate(
     { _id: id },
-    { $push: { orders: {products:cart,status:"recived",total:total }} },
+    { $push: { orders: { products: cart, status: "recived", total: total } } },
     function (err, data) {
       if (data) {
         res.send({ Success: "Order recived!" });
@@ -94,4 +94,17 @@ const AddOrder = async (req, res) => {
   );
 };
 
-export { RegisterUser, LoginUser, GetUserData, AddOrder };
+const ChangeAddress = async (req, res) => {
+  const { address, id } = req.body;
+  User.findOneAndUpdate(
+    { _id: id },
+    { $set: { address }  },
+    function (err, data) {
+      if (data) {
+        res.send({ Success: "Address changed!" });
+      }
+    }
+  );
+};
+
+export { RegisterUser, LoginUser, GetUserData, AddOrder, ChangeAddress };
