@@ -29,7 +29,7 @@ const addressSchema = mongoose.Schema({
     required:false,
   },
   nr:{
-    type:String,
+    type:Number,
     required:false,
   }
 })

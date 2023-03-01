@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LoginUser, GetUser } from "../../actions/userActions";
 import { useNavigate } from "react-router-dom";
 import Alert from "../Alert";
+import Button from "../Button";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function Login() {
     if (userInfo.token !== undefined) {
       navigate(`/profile`);
     }
-  }, [userInfo.token]);  
+  }, [userInfo.token]);
 
   return (
     <form onSubmit={handleLogin} className="login">
@@ -44,6 +45,7 @@ export default function Login() {
         }
       ></input>
       <input
+      type='password'
         onChange={(e) => {
           setPassword(e.target.value);
         }}
@@ -54,7 +56,15 @@ export default function Login() {
             : {}
         }
       ></input>
-      <button type="submit">Login</button>
+      <a>
+        <Button
+          margintop={"20px"}
+          width={"250px"}
+          height={"40px"}
+          text={"Login"}
+          type={"submit"}
+        />
+      </a>
     </form>
   );
 }

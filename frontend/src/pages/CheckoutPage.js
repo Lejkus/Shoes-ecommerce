@@ -27,9 +27,9 @@ export default function CheckoutPage({ token }) {
         setError(err);
       });
   }, []);
-
+  console.log(user);
   const handleOrder = async () => {
-    if (Cart.cartItems.lenght > 0) {
+    if (Cart.cartItems.lenght > 0 || user.address.city != null) {
       AddUserOrder(user._id, Cart.cartItems, Cart.total).then((response) => {
         if (response.data.Success) {
           alert("order success");
