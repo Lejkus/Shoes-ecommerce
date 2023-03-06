@@ -27,19 +27,29 @@ export default function CheckoutPage({ token }) {
         setError(err);
       });
   }, []);
-  console.log(user);
+  
   const handleOrder = async () => {
-    if (Cart.cartItems.lenght > 0 || user.address.city != null) {
-      AddUserOrder(user._id, Cart.cartItems, Cart.total).then((response) => {
-        if (response.data.Success) {
-          alert("order success");
-          Cart.cartItems.forEach((element) => {
-            dispatch(deleteFromCart(element.data._id, element.color));
-            dispatch(SetTotal(0));
-          });
-          Cart.total = 0;
-        }
-      });
+    if (Cart.cartItems.length > 0) {
+      if (
+        user.address.country &&
+        user.address.city &&
+        user.address.street &&
+        user.address.nr &&
+        user.address.zipcode
+      ) {
+        AddUserOrder(user._id, Cart.cartItems, Cart.total).then((response) => {
+          if (response.data.Success) {
+            alert("order success");
+            Cart.cartItems.forEach((element) => {
+              dispatch(deleteFromCart(element.data._id, element.color));
+              dispatch(SetTotal(0));
+            });
+            Cart.total = 0;
+          }
+        });
+      } else {
+        alert("Set your shipment location!");
+      }
     } else {
       alert("Empty cart!");
     }

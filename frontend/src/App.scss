@@ -36,14 +36,15 @@ body {
   .shop-about{
     display: flex;
     width: 150px;
+    margin-left: 150px;
     justify-content: space-around;
     font-size: 19px;
   }
   .icons{
     display: flex;
     justify-content: space-evenly;
-    width: 200px;
-    *{
+    width: 400px;
+    svg{
       cursor: pointer;
     }
     .count{
@@ -59,6 +60,48 @@ body {
       top: 20px;  
     }
   }
+  .search-container{
+    max-width: 150px;
+    width: 150px;
+    margin-right: 50px;
+    transition: all 0.5s linear;
+    input{
+      border: none;
+      border-bottom: 2px solid #9098a9;
+      appearance: none;
+      width: 150px;
+      height: 30px;
+      font-size: 16px;
+      color: #000000;
+      -webkit-appearance: none;
+      animation-name: popup;
+      animation-duration: 1s;
+
+      cursor: text;
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }      
+      &::placeholder{
+        color: #9098A9
+      }
+      &:focus{
+        outline: none;
+        border: none;
+        border-bottom: 2px solid #223254;
+      }
+    }
+    .products-container{
+      position: absolute;
+      background-color: white;
+      border: 1px solid $color-black2;
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 5px;
+      .product{
+        z-index: 99999;
+      }
+    }
+  }
   h2{
     font-family: 'Brush Script MT', cursive;
     font-size: 40px;
@@ -70,6 +113,8 @@ body {
   p:hover{
     border-bottom: rgba(0, 0, 0, 0.2352941176) 2px solid;
     cursor: pointer;
+    animation-name: popup;
+    animation-duration: 0.3s;
   }
   
 }
@@ -79,22 +124,6 @@ body {
   margin-right: 40px;
   text-align: center;
   max-width: 300px;
-  input[type=text]{
-    appearance: none;
-    width: 80%;
-    border: 1px $color-black-hr solid;
-    border-radius: 20px;
-    height: 24px;
-    padding: 5px;
-    font-size: 16px;
-    outline: none;
-    transition: all 0.5s ease-in-out;
-    margin-bottom: 15px;
-    margin-top: 10px;
-    &:focus{
-      background-color: #eeeeee;
-    }
-  }
 
   input[type="range"] { 
       margin: auto;
@@ -850,6 +879,13 @@ body {
   }
 }
 
+.home-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 300px;
+}
+
 //**media**//
 
 @media only screen and (max-width: 1800px) {
@@ -992,6 +1028,14 @@ body {
   }
   100% {
       transform: rotate(360deg);
+  }
+}
+@keyframes popup {
+  0% {
+      width: 10%;
+  }
+  100% {
+    width: 100%;
   }
 }
 

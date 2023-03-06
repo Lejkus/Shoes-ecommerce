@@ -13,7 +13,6 @@ export default function Filters() {
     category: "",
     numericFilters: 500,
     sort: "",
-    name: "",
   });
 
   const [filters, setFilters] = useState({
@@ -63,16 +62,6 @@ export default function Filters() {
     <>
       <div className="filters">
         <h1>FILTERS</h1>
-        <input
-          type="text"
-          ref={nameinput}
-          onChange={(e) => {
-            setQueryObject((prevState) => ({
-              ...prevState,
-              name: e.target.value,
-            }));
-          }}
-        ></input>
         <hr></hr>
         <>
           <div

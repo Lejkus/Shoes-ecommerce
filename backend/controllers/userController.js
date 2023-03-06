@@ -96,9 +96,10 @@ const AddOrder = async (req, res) => {
 
 const ChangeAddress = async (req, res) => {
   const { address, id } = req.body;
+  console.log(address);
   User.findOneAndUpdate(
     { _id: id },
-    { $set: { address }  },
+    { $set: { address:address }  },
     function (err, data) {
       if (data) {
         res.send({ Success: "Address changed!" });
