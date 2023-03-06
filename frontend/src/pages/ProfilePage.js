@@ -13,9 +13,19 @@ export default function ProfilePage({ token }) {
   const [render, setRender] = useState(false);
 
   const handleChangeAddress = () => {
-    ChangeUserAddress(user._id, address);
-    setVisible(false);
-    setRender(!render);
+    if (
+      address.country &&
+      address.city &&
+      address.street &&
+      address.nr &&
+      address.zipcode
+    ) {
+      ChangeUserAddress(user._id, address);
+      setRender(!render);
+    } else {
+      console.log(address.zipcode);
+      alert("fill data");
+    }
   };
 
   useEffect(() => {
@@ -23,6 +33,7 @@ export default function ProfilePage({ token }) {
       .then((response) => {
         setUser(response.data);
         setAddress(response.data.address);
+        setVisible(false);
       })
       .then(() => {
         setTimeout(() => {
@@ -160,7 +171,7 @@ export default function ProfilePage({ token }) {
                   margintop={"20px"}
                   width={"100%"}
                   height={"40px"}
-                  text={"Change  address"}
+                  text={visible ? "Cancel" : "Change  address"}
                 />
               </a>
 

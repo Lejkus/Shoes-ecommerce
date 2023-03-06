@@ -14,7 +14,7 @@ export default function SingleProductPage() {
 
   useEffect(() => {
     dispatch(singleProduct(id));
-  }, [dispatch]);
+  }, [id]);
 
   return (
     <>

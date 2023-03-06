@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Product from "../components/Product/Product";
 import Loading from "../components/Product/Loading";
-import Filters from "../components/Product/Filters";
 
 export default function ProductsPage() {
   const productList = useSelector((state) => state.productList);

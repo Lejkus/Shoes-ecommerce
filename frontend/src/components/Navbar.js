@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Seach from "./search/Seach";
 
 export default function Navbar() {
   const Cart = useSelector((state) => state.cart);
@@ -9,6 +10,8 @@ export default function Navbar() {
   const User = useSelector((state) => state.user);
   const { userInfo } = User;
 
+  const [visibleSearch, setVisibleSearch] = useState(false);
+  
   return (
     <header>
       <div className="navbar-container">
@@ -19,10 +22,7 @@ export default function Navbar() {
           >
             <p>SHOP</p>
           </Link>
-          <Link
-            to="/about"
-            style={{ color: "inherit", textDecoration: "inherit" }}
-          >
+          <Link to="/" style={{ color: "inherit", textDecoration: "inherit" }}>
             <p>ABOUT</p>
           </Link>
         </div>
@@ -31,21 +31,36 @@ export default function Navbar() {
         </Link>
 
         <div className="icons">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            x="0px"
-            y="0px"
-            width="35"
-            height="35"
-            viewBox="0 0 50 50"
-          >
-            <path
-              d="M23.3,25.9l-6.09-8.15C18.94,15.86,20,13.31,20,10.5C20,4.71,15.51,0,10,0S0,4.71,0,10.5S4.49,21,10,21
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            {visibleSearch ? (
+              <Seach changeVisible={()=>{setVisibleSearch(false)}} />
+            ) : (
+              <div
+                style={{
+                  maxWidth: "150px",
+                  width: "150px",
+                  marginRight: "50px",
+                }}
+              ></div>
+            )}
+
+            <svg
+              onClick={() => setVisibleSearch(!visibleSearch)}
+              xmlns="http://www.w3.org/2000/svg"
+              x="0px"
+              y="0px"
+              width="35"
+              height="35"
+              viewBox="0 0 50 50"
+            >
+              <path
+                d="M23.3,25.9l-6.09-8.15C18.94,15.86,20,13.31,20,10.5C20,4.71,15.51,0,10,0S0,4.71,0,10.5S4.49,21,10,21
 	c2.13,0,4.1-0.71,5.72-1.9l5.97,8L23.3,25.9z M2,10.5C2,5.81,5.59,2,10,2s8,3.81,8,8.5S14.41,19,10,19S2,15.19,2,10.5z"
-            ></path>
-          </svg>
-         
-          <Link to={userInfo.token!==undefined?`/profile`:`/login`}>
+              ></path>
+            </svg>
+          </div>
+
+          <Link to={userInfo.token !== undefined ? `/profile` : `/login`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
