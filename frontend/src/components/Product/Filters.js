@@ -2,61 +2,88 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../actions/productActions";
 
-export default function Filters() {
+export default function Filters({ products }) {
   const dispatch = useDispatch();
 
   const rangeinput = useRef();
-  const nameinput = useRef();
 
-  const [queryObject, setQueryObject] = useState({
-    color: "",
-    category: "",
-    numericFilters: 500,
-    sort: "",
-  });
+  const [colors, setColors] = useState([]);
+  const [max, setMax] = useState(0);
+  const [min, setMin] = useState(0);
 
-  const [filters, setFilters] = useState({
+  const [optionsVisibility, SetOptionsVisibility] = useState({
     color: false,
     style: true,
     sort: true,
   });
 
+  const [queryObject, setQueryObject] = useState({
+    color: "",
+    category: "",
+    numericFilters: "",
+    sort: "",
+  });
+
   const handleToggle = (event) => {
     if (event == "color") {
-      setFilters((prevState) => ({
+      SetOptionsVisibility((prevState) => ({
         ...prevState,
         color: !prevState.color,
       }));
     }
     if (event == "style") {
-      setFilters((prevState) => ({
+      SetOptionsVisibility((prevState) => ({
         ...prevState,
         style: !prevState.style,
       }));
     }
     if (event == "sort") {
-      setFilters((prevState) => ({
+      SetOptionsVisibility((prevState) => ({
         ...prevState,
         sort: !prevState.sort,
       }));
     }
   };
-
   const handleReset = () => {
     setQueryObject({
       color: "",
       category: "",
       sort: "",
       name: "",
-      numericFilters: 500,
+      numericFilters: max,
     });
-    rangeinput.current.value = 500;
-    nameinput.current.value = "";
+    rangeinput.current.value = max;
   };
 
   useEffect(() => {
     dispatch(listProducts(queryObject));
+    window.scrollTo(0, 0);
   }, [queryObject]);
+
+  useEffect(() => {
+    if (products) {
+      products.map((p) => {
+        p.colors.map((color) => {
+          if (!colors.includes(color)) {
+            colors.push(color);
+          }
+        });
+        const prices = products.map((object) => {
+          return object.price;
+        });
+        if (!max) {
+          rangeinput.current.value = max;
+          setMax(Math.max(...prices));
+          setMin(Math.min(...prices));
+        }
+      });
+    }
+  }, [products]);
+
+  //if we get max price we change input to it
+  useEffect(() => {
+    rangeinput.current.value = max;
+  }, [max]);
 
   return (
     <>
@@ -72,10 +99,12 @@ export default function Filters() {
           >
             <h3>Color</h3>
             <div>
-              <i className={filters.color ? "arrow down" : "arrow up"}></i>
+              <i
+                className={optionsVisibility.color ? "arrow down" : "arrow up"}
+              ></i>
             </div>
           </div>
-          <div className={filters.color ? "colors" : "colors-hidden"}>
+          <div className={optionsVisibility.color ? "colors" : "colors-hidden"}>
             <div
               onClick={() => {
                 setQueryObject((prevState) => ({
@@ -88,82 +117,26 @@ export default function Filters() {
               <label>All</label>
               <input type="checkbox" checked={queryObject.color === ""}></input>
             </div>
-            <div
-              onClick={() => {
-                setQueryObject((prevState) => ({
-                  ...prevState,
-                  color: "OCEAN",
-                }));
-              }}
-              className="color"
-            >
-              <label>Ocean</label>
-              <input
-                type="checkbox"
-                checked={queryObject.color === "OCEAN"}
-              ></input>
-            </div>
-            <div
-              onClick={() => {
-                setQueryObject((prevState) => ({
-                  ...prevState,
-                  color: "BLACK",
-                }));
-              }}
-              className="color"
-            >
-              <label>Black</label>
-              <input
-                type="checkbox"
-                checked={queryObject.color === "BLACK"}
-              ></input>
-            </div>
-            <div
-              onClick={() => {
-                setQueryObject((prevState) => ({
-                  ...prevState,
-                  color: "WHITE",
-                }));
-              }}
-              className="color"
-            >
-              <label>White</label>
-              <input
-                type="checkbox"
-                checked={queryObject.color === "WHITE"}
-              ></input>
-            </div>
-            <div
-              className="color"
-              onClick={() => {
-                setQueryObject((prevState) => ({
-                  ...prevState,
-                  color: "BLUE",
-                }));
-              }}
-            >
-              <label>Blue</label>
-              <input
-                type="checkbox"
-                checked={queryObject.color === "BLUE"}
-              ></input>
-            </div>
-
-            <div
-              className="color"
-              onClick={() => {
-                setQueryObject((prevState) => ({
-                  ...prevState,
-                  color: "HONEY",
-                }));
-              }}
-            >
-              <label>Honey</label>
-              <input
-                type="checkbox"
-                checked={queryObject.color === "HONEY"}
-              ></input>
-            </div>
+            {colors.map((color, index) => {
+              return (
+                <div
+                  key={index}
+                  onClick={() => {
+                    setQueryObject((prevState) => ({
+                      ...prevState,
+                      color: color,
+                    }));
+                  }}
+                  className="color"
+                >
+                  <label>{color}</label>
+                  <input
+                    type="checkbox"
+                    checked={queryObject.color === color}
+                  ></input>
+                </div>
+              );
+            })}
           </div>
         </>
         <hr></hr>
@@ -175,14 +148,18 @@ export default function Filters() {
         >
           <h3>Style</h3>
           <div>
-            <i class={filters.style ? "arrow down" : "arrow up"}></i>
+            <i
+              className={optionsVisibility.style ? "arrow down" : "arrow up"}
+            ></i>
           </div>
         </div>
 
         <div className="style">
-          <div className={filters.style ? "colors" : "colors-hidden"}>
+          <div
+            className={optionsVisibility.style ? "options" : "options-hidden"}
+          >
             <div
-              className="color"
+              className="option"
               onClick={() => {
                 setQueryObject((prevState) => ({
                   ...prevState,
@@ -198,7 +175,7 @@ export default function Filters() {
             </div>
 
             <div
-              className="color"
+              className="option"
               onClick={() => {
                 setQueryObject((prevState) => ({
                   ...prevState,
@@ -214,7 +191,7 @@ export default function Filters() {
             </div>
 
             <div
-              className="color"
+              className="option"
               onClick={() => {
                 setQueryObject((prevState) => ({
                   ...prevState,
@@ -230,7 +207,7 @@ export default function Filters() {
             </div>
 
             <div
-              className="color"
+              className="option"
               onChange={() => {
                 setQueryObject((prevState) => ({
                   ...prevState,
@@ -256,14 +233,18 @@ export default function Filters() {
         >
           <h3>Sort by:</h3>
           <div>
-            <i class={filters.sort ? "arrow down" : "arrow up"}></i>
+            <i
+              className={optionsVisibility.sort ? "arrow down" : "arrow up"}
+            ></i>
           </div>
         </div>
 
         <div className="sort">
-          <div className={filters.sort ? "colors" : "colors-hidden"}>
+          <div
+            className={optionsVisibility.sort ? "options" : "options-hidden"}
+          >
             <div
-              className="color"
+              className="option"
               onClick={() => {
                 setQueryObject((prevState) => ({
                   ...prevState,
@@ -275,7 +256,7 @@ export default function Filters() {
               <input type="checkbox" checked={queryObject.sort === ""}></input>
             </div>
             <div
-              className="color"
+              className="option"
               onClick={() => {
                 setQueryObject((prevState) => ({
                   ...prevState,
@@ -291,7 +272,7 @@ export default function Filters() {
             </div>
 
             <div
-              className="color"
+              className="option"
               onClick={() => {
                 setQueryObject((prevState) => ({
                   ...prevState,
@@ -307,7 +288,7 @@ export default function Filters() {
             </div>
 
             <div
-              className="color"
+              className="option"
               onClick={() => {
                 setQueryObject((prevState) => ({
                   ...prevState,
@@ -315,7 +296,7 @@ export default function Filters() {
                 }));
               }}
             >
-              <label>Rating</label>
+              <label><s>Rating</s></label>
               <input
                 type="checkbox"
                 checked={queryObject.sort === "rating"}
@@ -324,15 +305,15 @@ export default function Filters() {
           </div>
         </div>
         <hr></hr>
-        <p>${queryObject.numericFilters}</p>
+        <p>${queryObject.numericFilters || max || "loading.."}</p>
 
         <input
           type="range"
           ref={rangeinput}
-          min="20"
-          max="500"
+          min={min}
+          max={max}
           step="10"
-          defaultValue="500"
+          defaultValue={1000}
           onMouseUp={(e) => {
             setQueryObject((prevState) => ({
               ...prevState,
@@ -348,9 +329,16 @@ export default function Filters() {
         ></input>
 
         <hr></hr>
-        <button className="reset" onClick={handleReset}>
-          Remove all
-        </button>
+        <div style={{ display: "flex",justifyContent:'space-evenly',alignItems:"center" }}>
+          <button className="reset" onClick={handleReset}>
+            Remove all
+          </button>
+          {products.length > 0 ? (
+            <p style={{ color: "#303030",fontSize:"14px",width:"70px" }}>{products.length} Items</p>
+          ) : (
+            <d style={{width:"70px"}}></d>
+          )}
+        </div>
       </div>
     </>
   );

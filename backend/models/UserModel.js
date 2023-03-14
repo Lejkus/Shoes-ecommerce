@@ -31,6 +31,10 @@ const addressSchema = mongoose.Schema({
   nr:{
     type:Number,
     required:false,
+  },
+  zipcode:{
+    type:String,
+    required:false,
   }
 })
 

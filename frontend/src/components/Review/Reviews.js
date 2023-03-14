@@ -12,12 +12,12 @@ export default function Reviews({ reviews }) {
         </div>
         <AddrReview />
       </div>
-      {reviews.map((review) => {
+      {reviews.map((review,index) => {
         return (
-          <>
+          <React.Fragment key={index}>
             <hr></hr>
-            <Review review={review} />
-          </>
+            <Review  review={review} />
+          </React.Fragment>
         );
       })}
     </div>

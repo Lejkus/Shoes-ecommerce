@@ -72,7 +72,7 @@ export default function AddrReview() {
               onClick={() => {
                 setStarsLength(0);
               }}
-              class="fa fa-star fa-lg"
+              className="fa fa-star fa-lg"
               aria-hidden="true"
             ></i>
 
@@ -81,7 +81,7 @@ export default function AddrReview() {
                 onClick={() => {
                   setStarsLength(1);
                 }}
-                class="fa fa-star fa-lg"
+                className="fa fa-star fa-lg"
                 aria-hidden="true"
               ></i>
             ) : (
@@ -89,7 +89,7 @@ export default function AddrReview() {
                 onClick={() => {
                   setStarsLength(1);
                 }}
-                class="fa fa-star-o fa-lg"
+                className="fa fa-star-o fa-lg"
                 aria-hidden="true"
               ></i>
             )}
@@ -99,7 +99,7 @@ export default function AddrReview() {
                 onClick={() => {
                   setStarsLength(2);
                 }}
-                class="fa fa-star fa-lg"
+                className="fa fa-star fa-lg"
                 aria-hidden="true"
               ></i>
             ) : (
@@ -107,7 +107,7 @@ export default function AddrReview() {
                 onClick={() => {
                   setStarsLength(2);
                 }}
-                class="fa fa-star-o fa-lg"
+                className="fa fa-star-o fa-lg"
                 aria-hidden="true"
               ></i>
             )}
@@ -117,7 +117,7 @@ export default function AddrReview() {
                 onClick={() => {
                   setStarsLength(3);
                 }}
-                class="fa fa-star fa-lg"
+                className="fa fa-star fa-lg"
                 aria-hidden="true"
               ></i>
             ) : (
@@ -125,7 +125,7 @@ export default function AddrReview() {
                 onClick={() => {
                   setStarsLength(3);
                 }}
-                class="fa fa-star-o fa-lg"
+                className="fa fa-star-o fa-lg"
                 aria-hidden="true"
               ></i>
             )}
@@ -135,7 +135,7 @@ export default function AddrReview() {
                 onClick={() => {
                   setStarsLength(4);
                 }}
-                class="fa fa-star fa-lg"
+                className="fa fa-star fa-lg"
                 aria-hidden="true"
               ></i>
             ) : (
@@ -143,7 +143,7 @@ export default function AddrReview() {
                 onClick={() => {
                   setStarsLength(4);
                 }}
-                class="fa fa-star-o fa-lg"
+                className="fa fa-star-o fa-lg"
                 aria-hidden="true"
               ></i>
             )}

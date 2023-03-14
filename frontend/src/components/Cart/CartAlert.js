@@ -18,23 +18,25 @@ export default function CartAlert({ visible }) {
   return (
     <div className="cart-allert">
       <Link to={`/cart`}>
-        <div class={visible ? "triangle" : "triangle-hidden"}></div>
-        <div class={visible ? "added-alert" : "added-alert-hidden"}>
-          <center color="red"><b >{succes}</b></center>
+        <div className={visible ? "triangle" : "triangle-hidden"}></div>
+        <div className={visible ? "added-alert" : "added-alert-hidden"}>
+          <center color="red">
+            <b>{succes}</b>
+          </center>
           <div className="items">
             {cartItems
               .map((item, index) => {
                 return (
                   <div className="item-cart" key={index}>
                     <img src={item.data.images[0].images[0]}></img>
-                    <p>qty: {item.qty}</p>
-                    <p>${item.data.price}</p>
+                    <a>qty: {item.qty}</a>
+                    <a>${item.data.price}</a>
                   </div>
                 );
               })
               .reverse()}
           </div>
-          <p>total: ${total}</p>
+          <a className="total">total: ${total}</a>
         </div>
       </Link>
     </div>

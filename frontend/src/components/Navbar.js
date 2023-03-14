@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Seach from "./search/Seach";
+import CartAlert from "../components/Cart/CartAlert";
 
 export default function Navbar() {
   const Cart = useSelector((state) => state.cart);
@@ -11,7 +12,15 @@ export default function Navbar() {
   const { userInfo } = User;
 
   const [visibleSearch, setVisibleSearch] = useState(false);
-  
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+    setTimeout(() => {
+      setVisible(false);
+    }, 2500);
+  }, [Cart.succes, Cart.cartItems]);
+
   return (
     <header>
       <div className="navbar-container">
@@ -33,7 +42,11 @@ export default function Navbar() {
         <div className="icons">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             {visibleSearch ? (
-              <Seach changeVisible={()=>{setVisibleSearch(false)}} />
+              <Seach
+                changeVisible={() => {
+                  setVisibleSearch(false);
+                }}
+              />
             ) : (
               <div
                 style={{
@@ -59,7 +72,6 @@ export default function Navbar() {
               ></path>
             </svg>
           </div>
-
           <Link to={userInfo.token !== undefined ? `/profile` : `/login`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -73,6 +85,7 @@ export default function Navbar() {
             </svg>
           </Link>
           <Link to={`/cart`}>
+            {Cart.succes ? <CartAlert visible={visible} /> : <></>}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"

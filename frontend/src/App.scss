@@ -8,12 +8,14 @@ $color-black2:#4c4c4c;
 
 $color-black-hr:#0000003c;
 
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
+  }
   margin: 0;
   font-family: 'Andalé Mono', monospace;
   hr{
@@ -44,6 +46,10 @@ body {
     display: flex;
     justify-content: space-evenly;
     width: 400px;
+    align-items: center;
+    a{
+      text-decoration: none;
+    }
     svg{
       cursor: pointer;
     }
@@ -120,7 +126,7 @@ body {
 }
 
 .filters{
-  min-width: 250px;
+  min-width: 300px;
   margin-right: 40px;
   text-align: center;
   max-width: 300px;
@@ -146,39 +152,7 @@ body {
         border: 2px solid #999; /* 1 */
     }
   }
-
-
-  .reset{
-    appearance: none;
-    background: none;
-    width: 120px;
-    height: 50px;
-    border: none;
-    cursor: pointer;
-    margin-top: -10px;
-    transition: all 0.5s linear;
-    color:  #303030;
-    &:hover {
-      color: black;
-    }
-  }
-  h1{
-    font-weight: 500px;
-  }
-  .colors{
-    display: flex;
-    flex-direction: column;
-    padding: 10px 25px 10px 25px;
-    .color{
-      cursor: pointer;
-      height: 35px;
-      display: flex;
-      justify-content: space-between;
-      margin: 5px 0px 5px 0px;
-      *{
-        cursor: pointer;
-      }
-      input[type=checkbox] {
+  input[type=checkbox] {
        width: 15px;
        height: 15px;
        outline: 1px solid #666;
@@ -191,13 +165,66 @@ body {
        height: 14px;
        display: inline-block;
        appearance: none;
+  }
+  input[type=checkbox]:checked{
+  background: #B6C2CC;
+  }
+
+  .reset{
+    appearance: none;
+    background: none;
+    width: 120px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s linear;
+    color:  #303030;
+    &:hover {
+      color: black;
+    }
+  }
+  h1{
+    font-weight: 500px;
+  }
+  .colors{
+    display: flex;
+    flex-direction: row;
+    padding: 10px 25px 10px 25px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .color{
+      cursor: pointer;
+      height: 35px;
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0px 5px 0px;
+      width: 40%;
+      *{
+        cursor: pointer;
       }
-      input[type=checkbox]:checked{
-        background: #B6C2CC;
+      
+    }
+  }
+  .options{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 25px 10px 25px;
+    .option{
+      cursor: pointer;
+      height: 35px;
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0px 5px 0px;
+      *{
+        cursor: pointer;
       }
     }
   }
+  
   .colors-hidden{
+    display: none;
+  }
+  .options-hidden{
     display: none;
   }
   .title-toogle{
@@ -433,6 +460,9 @@ body {
 }
 
 .cart-allert{
+  width: 50px;
+  position: absolute;
+  margin-top: 35px;
   .added-alert-hidden{
     display: none;
   }
@@ -440,28 +470,22 @@ body {
     display: none;
   }
   .triangle{
-      position: absolute;
-      right: 20%;
-      top: 70px;
-      width: 0;
-      height: 0;
       border-style: solid;
-      border-width: 0 25px 45px 25px;
+      border-width: 0 25px 20px 25px;
       border-color: transparent transparent #f7f7f7 transparent;
     }
   .added-alert{
-    width: 300px;
-    // height: 200px;
+    width: 250px;
     background-color: #f7f7f7;
-    position: absolute;
-    right: 20%;
-    top: 100px;
     color: #000000;
     padding: 0 2px 0 10px;
-    p{
-      margin: 10px;
-      text-align: end;
-    }
+      a{
+        margin: 10px;
+        text-align: end;
+      }
+      .total{
+        margin-left: 50%;
+      }
       .items{
         overflow: auto;
         height: 150px;
@@ -892,11 +916,46 @@ body {
   .image-section {
     min-width: 700px !important;
   }
+
+}
+@media only screen and (max-width: 1650px) {
+  .image-section {
+    min-width: 700px !important;
+  }
   .triangle{
-    right: 18% !important;
+    right: 13% !important;
   }
   .added-alert{
-    right: 18% !important;
+    right: 13% !important;
+  }
+  .navbar-container{
+    .logo{
+      margin: 0px 10px;
+    }
+    .icons{
+      width: 300px ;
+      div{
+        div{
+          width: 50px !important;
+          margin-right: 0px !important;
+        }
+      }
+    }
+    .search-container{
+      width: 50px;
+      margin-right: 10px;
+      input{
+        width: 50px;
+      }
+    }
+  }
+  .home-page{
+    padding: 0;
+    width: 100%;
+    div{
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 @media only screen and (max-width: 1400px) {
@@ -920,6 +979,7 @@ body {
         }
       }
     }
+
 }
 @media only screen and (max-width: 1200px) {
   .image-section {
@@ -931,10 +991,10 @@ body {
     }
   }
   .triangle{
-    right: 15% !important;
+    right: 9% !important;
   }
   .added-alert{
-    right: 15% !important;
+    right: 9% !important;
   }
   .product-page{
     .products{
@@ -1004,6 +1064,7 @@ body {
       }
     }
   }
+
 }
 
 

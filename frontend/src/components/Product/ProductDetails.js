@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../actions/cartActions";
-import CartAlert from "../Cart/CartAlert";
 import Button from "../Button";
 
 export default function ProductDetails({ product }) {
@@ -10,15 +9,9 @@ export default function ProductDetails({ product }) {
   const [active_color, setColor] = useState(product.images[0].color);
   const [avenage, setAvenage] = useState(0);
   const [acitve_images, setImages] = useState(product.images[0]);
-  const [visible, setVisible] = useState(false);
-
 
   const addToCartHandler = () => {
     dispatch(addToCart(product._id, active_color));
-    setVisible(true);
-    setTimeout(() => {
-      setVisible(false);
-    }, 3000);
   };
 
   //setAvenage
@@ -32,6 +25,7 @@ export default function ProductDetails({ product }) {
 
   //setImages
   useEffect(() => {
+    window.scrollTo(0, 0);
     setImages(
       product.images.find(({ color }) => color === active_color.toUpperCase())
     );
@@ -63,6 +57,7 @@ export default function ProductDetails({ product }) {
               }}
               className="small-img"
               src={product.images[index].images[0]}
+              key={index}
             ></img>
           );
         })}
@@ -85,7 +80,6 @@ export default function ProductDetails({ product }) {
             onClick={() => {
               addToCartHandler();
             }}
-            
           >
             <Button width={"400px"} height={"40px"} text={"ADD TO CART"} />
           </a>
@@ -100,8 +94,6 @@ export default function ProductDetails({ product }) {
           </p>
         </center>
       </div>
-
-      <CartAlert visible={visible} />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import "./App.scss";
 import Navbar from "./components/Navbar";
 import ProductsPage from "./pages/ProductsPage";
-import Filters from "./components/Product/Filters";
 import { Routes, Route } from "react-router-dom";
 import SingleProductPage from "./pages/SingleProductPage";
 import CartPage from "./pages/CartPage";
@@ -20,18 +19,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route exact path="/" element={<HomePage />}></Route>
-        <Route
-          exact
-          path="/shop"
-          element={
-            <>
-              <div className="product-page">
-                <Filters />
-                <ProductsPage />
-              </div>
-            </>
-          }
-        ></Route>
+        <Route exact path="/shop" element={<ProductsPage />}></Route>
         <Route
           exact
           path="/product/:id"

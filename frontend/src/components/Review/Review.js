@@ -4,7 +4,7 @@ export default function Review({ review }) {
   const { name, rating, createdAt, comment } = review;
   const stars = [];
   for (let i = 0; i < rating; i++) {
-    stars.push(<i class="fa fa-star fa-lg" key={i} aria-hidden="true"></i>);
+    stars.push(<i className="fa fa-star fa-lg" key={i} aria-hidden="true"></i>);
   }
 
   return (

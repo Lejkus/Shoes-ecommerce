@@ -14,6 +14,7 @@ export default function SingleProductPage() {
 
   useEffect(() => {
     dispatch(singleProduct(id));
+    window.scrollTo(0, 0)
   }, [id]);
 
   return (

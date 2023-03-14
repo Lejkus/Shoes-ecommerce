@@ -12,13 +12,14 @@ export default function Product({ product }) {
       onMouseLeave={(e) => setImg(product.images[0].images[0])}
     >
       <Link to={`/product/${product._id}`}>
-        <img src={img}></img>
+        <img loading="lazy" src={img}></img>
       </Link>
 
       <div className="images">
         {product.colors.map((c, index) => {
           return (
             <img
+              key={index}
               src={product.images[index].images[0]}
               className={`small-img`}
               onClick={(e) => setImg(product.images[index].images[1])}

@@ -27,7 +27,7 @@ export default function CheckoutPage({ token }) {
         setError(err);
       });
   }, []);
-  
+
   const handleOrder = async () => {
     if (Cart.cartItems.length > 0) {
       if (
@@ -64,7 +64,10 @@ export default function CheckoutPage({ token }) {
       ) : error ? (
         <h1>unexpected error refresh the page!</h1>
       ) : (
-        <button onClick={handleOrder}>{token}</button>
+        <>
+          <h1>there will be future checkout site</h1>
+          <button onClick={handleOrder}>{token}</button>
+        </>
       )}
     </div>
   );
