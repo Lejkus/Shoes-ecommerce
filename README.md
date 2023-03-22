@@ -8,7 +8,7 @@ Here is the picture of redux structure:
 
 In main page i fetching all products by dispatching redux actions and giving object filters to apply. ( productActions.js, Filters.js)
 
-![image](https://user-images.githubusercontent.com/104850417/227014337-89a84b06-a703-4b81-a759-d06821f6ae91.png)
+![image](https://user-images.githubusercontent.com/104850417/227014891-c244c814-f219-42ad-bb86-d9dd42b779ef.png)
 
 After clicking, I set the page of a single product based on the redirection from the link (useParams)
 
