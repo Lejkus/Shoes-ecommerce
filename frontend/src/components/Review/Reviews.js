@@ -19,7 +19,7 @@ export default function Reviews({ reviews }) {
             <Review  review={review} />
           </React.Fragment>
         );
-      })}
+      }).reverse()}
     </div>
   );
 }
