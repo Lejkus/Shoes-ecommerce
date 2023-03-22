@@ -28,7 +28,8 @@ There is also a profile site where you can change ship adress and see your order
 
 Phone version looks like this:
 
-![image](https://user-images.githubusercontent.com/104850417/227028997-98398d99-6f54-42c7-86d1-3262437a2b9d.png)![image](https://user-images.githubusercontent.com/104850417/227029261-a94460a7-3ca4-40df-994f-24b2d93f1614.png)
+![image](https://user-images.githubusercontent.com/104850417/227028997-98398d99-6f54-42c7-86d1-3262437a2b9d.png)![image](https://user-images.githubusercontent.com/104850417/227029261-a94460a7-3ca4-40df-994f-24b2d93f1614.png)![image](https://user-images.githubusercontent.com/104850417/227029501-dbb37be2-f9ef-41a9-816b-1044622f725d.png)
+
 
 
 
