@@ -191,7 +191,7 @@ export default function ProfilePage({ token }) {
             <div className="address-schema"></div>
           </div>
           <div className="orders">
-            {user.orders.length > 1 ? (
+            {user.orders.length > 0 ? (
               user.orders.map((order, index) => {
                 return (
                   <div className="order" key={index}>

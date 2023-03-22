@@ -25,7 +25,7 @@ export default function AddrReview() {
       if (comment != "") {
         GetUserData(token).then((response) => {
           axios
-            .post(`http://localhost:5000/api/products/addreview/${id}`, {
+            .post(`https://store-shoes.onrender.com/api/products/addreview/${id}`, {
               name: response.data.name,
               rating: starsLength + 1,
               comment: comment,

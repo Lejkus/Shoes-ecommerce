@@ -5,7 +5,8 @@ export const listProducts = (queryObject) => async (dispatch) => {
     dispatch({ type: "PRODUCT_LIST_REQUEST" });
     
     const { data } = await axios.get(
-      `http://localhost:5000/api/products?color=${queryObject.color}&sort=${queryObject.sort}&category=${queryObject.category}&numericFilters=${"price<="+queryObject.numericFilters}`
+      // `http://localhost:5000/api/products?color=${queryObject.color}&sort=${queryObject.sort}&category=${queryObject.category}&numericFilters=${"price<="+queryObject.numericFilters}`
+      `https://store-shoes.onrender.com/api/products?color=${queryObject.color}&sort=${queryObject.sort}&category=${queryObject.category}&numericFilters=${"price<="+queryObject.numericFilters}`
     );
     //little bit of waiting :)
 
@@ -31,7 +32,8 @@ export const singleProduct = (id) => async (dispatch) => {
     dispatch({ type: "SINGLE_PRODUCT_REQUEST" });
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/products/singleproduct${id}`
+      // `http://localhost:5000/api/products/singleproduct${id}`
+      `https://store-shoes.onrender.com/api/products/singleproduct${id}`
     );
 
     setTimeout(() => {

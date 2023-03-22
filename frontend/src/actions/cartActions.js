@@ -2,7 +2,7 @@ import axios from "axios";
 export const addToCart = (id, color) => async (dispatch, getState) => {
   try {
     const { data } = await axios.get(
-      `http://localhost:5000/api/products/singleproduct${id}`
+      `https://store-shoes.onrender.com/api/products/singleproduct${id}`
     );
     //only selected color image
     data.images = data.images.filter((c) => c.color == color);

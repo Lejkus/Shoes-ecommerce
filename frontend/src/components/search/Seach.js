@@ -8,7 +8,7 @@ export default function Seach({ changeVisible }) {
 
   const getData = async () => {
     await axios
-      .get(`http://localhost:5000/api/products?&name=${name}`)
+      .get(`https://store-shoes.onrender.com/api/products?&name=${name}`)
       .then((response) => {
         setProducts(response.data);
       });
